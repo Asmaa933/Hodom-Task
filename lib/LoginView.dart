@@ -66,8 +66,8 @@ class CheckAuth extends StatefulWidget {
 }
 
 class _CheckAuthState extends State<CheckAuth> {
-  String phone;
-  String password;
+  String phone = '';
+  String password = '';
   bool showPassword = false;
 
   @override
@@ -77,7 +77,10 @@ class _CheckAuthState extends State<CheckAuth> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          buildText(20, 'رقم الهاتف', Colors.black),
+          Container(
+            margin: EdgeInsets.only(right: 10),
+            child: buildText(20, 'رقم الهاتف', Colors.black),
+          ),
           TextField(
             textAlign: TextAlign.end,
             keyboardType: TextInputType.number,
@@ -85,7 +88,9 @@ class _CheckAuthState extends State<CheckAuth> {
               phone = value;
             },
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
               hintText: '+20 123 456 7896',
             ),
           ),
@@ -98,12 +103,14 @@ class _CheckAuthState extends State<CheckAuth> {
               password = value;
             },
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
               hintText: 'ادخل كلمة المرور',
               prefixIcon: IconButton(
                 icon: Icon(
                   Icons.remove_red_eye,
-                  color: this.showPassword ? Colors.blue : Colors.grey,
+                  color: this.showPassword ? Colors.black : Colors.grey,
                 ),
                 onPressed: () {
                   setState(() => this.showPassword = !this.showPassword);
@@ -111,18 +118,25 @@ class _CheckAuthState extends State<CheckAuth> {
               ),
             ),
           ),
+          addHeightSizedBox(5),
           Align(
             alignment: Alignment.centerLeft,
-            child: buildText(17, 'هل نسيت كلمة المرور؟', Colors.black),
+            child: FlatButton(
+              onPressed: () {
+                showAlertDialog(context, 'Forget password pressed');
+              },
+              child: buildText(17, 'هل نسيت كلمة المرور؟', Colors.black),
+            ),
           ),
-          addHeightSizedBox(60),
+          addHeightSizedBox(50),
           Container(
             width: double.infinity,
-            color: Colors.black,
+            height: 60,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15.0),
+              color: Colors.black,
+            ),
             child: FlatButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(30.0),
-              ),
               onPressed: () {
                 signInForUser(context, phone, password);
               },
@@ -136,6 +150,11 @@ class _CheckAuthState extends State<CheckAuth> {
 }
 
 void signInForUser(BuildContext context, String phone, String password) {
-  print('user' + phone);
-  print('pass' + password);
+  if (phone.isEmpty || password.isEmpty) {
+    showAlertDialog(context, 'يجب ادخال رقم الهاتف وكلمة المرور');
+  } else {
+    //TO DO
+    print('user' + phone);
+    print('pass' + password);
+  }
 }

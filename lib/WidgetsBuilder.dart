@@ -33,7 +33,7 @@ SizedBox addHeightSizedBox(double height) {
   return SizedBox(height: height);
 }
 
-showAlertDialog(BuildContext context) {
+showAlertDialog(BuildContext context, String message) {
   // set up the button
   Widget okButton = FlatButton(
     child: Text("OK"),
@@ -44,8 +44,8 @@ showAlertDialog(BuildContext context) {
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text("Alert"),
-    content: Text("Facebook button pressed"),
+    title: Text('Alert'),
+    content: Text(message),
     actions: [
       okButton,
     ],

@@ -75,7 +75,7 @@ class FaceBookButtonBuilder extends StatelessWidget {
         ),
         color: Colors.transparent,
         onPressed: () {
-          showAlertDialog(context);
+          showAlertDialog(context, 'Facebook button pressed');
         },
       ),
     );
