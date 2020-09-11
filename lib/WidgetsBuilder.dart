@@ -36,7 +36,9 @@ SizedBox addHeightSizedBox(double height) {
 showAlertDialog(BuildContext context, String title, String message) {
   // set up the button
   Widget okButton = FlatButton(
-    child: Text("OK"),
+    child: Text(
+      "ok",
+    ),
     onPressed: () {
       Navigator.of(context).pop();
     },
@@ -44,8 +46,8 @@ showAlertDialog(BuildContext context, String title, String message) {
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text(title),
-    content: Text(message),
+    title: Text(title, textAlign: TextAlign.center),
+    content: Text(message, textAlign: TextAlign.center),
     actions: [
       okButton,
     ],

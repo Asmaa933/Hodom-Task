@@ -15,6 +15,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Hodom',
+        theme: ThemeData(
+          primaryColor: Colors.black,
+        ),
         home: WelcomeView(),
         routes: {
           ScreenRoutes.welcomeView: (_) => WelcomeView(),

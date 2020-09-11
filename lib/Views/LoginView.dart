@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hodom_task/WidgetsBuilder.dart';
-import 'package:hodom_task/services/ApiHandler.dart';
+import 'package:hodom_task/api/ApiHandler.dart';
 
 import '../main.dart';
 
@@ -141,7 +141,7 @@ class _CheckAuthState extends State<CheckAuth> {
             ),
             child: FlatButton(
               onPressed: () {
-                signInForUser(context, phone, password);
+                signInForUser();
               },
               child: buildText(25, 'تسجيل الدخول', Colors.white),
             ),
@@ -150,19 +150,23 @@ class _CheckAuthState extends State<CheckAuth> {
       ),
     );
   }
-}
 
-void signInForUser(BuildContext context, String phone, String password) async {
-  if (phone.isEmpty || password.isEmpty) {
-    showAlertDialog(context, 'خطأ', 'يجب ادخال رقم الهاتف وكلمة المرور');
-  } else {
-    var loginData = await ApiHandler().checkAuth(phone, password);
-    if (loginData.status.code == 200) {
-      showAlertDialog(context, 'Login success',
-          'name: ${loginData.result.user.name} \nemail: ${loginData.result.user.email}');
-      Navigator.of(context).pushNamed(ScreenRoutes.homeView);
+  void signInForUser() async {
+    if (phone.isEmpty || password.isEmpty) {
+      showAlertDialog(context, 'خطأ', 'يجب ادخال رقم الهاتف وكلمة المرور');
     } else {
-      showAlertDialog(context, 'خطأ', loginData.status.message);
+      var data = await ApiHandler().checkAuth(phone, password);
+      var loginData = data[0];
+      if (loginData['status']['code'] == 200) {
+        //todo
+        print(
+            'name: ${loginData['result']['user']['name']} \nemail: ${loginData['result']['user']['email']}');
+        Navigator.of(context).pushNamed(ScreenRoutes.homeView);
+      } else {
+        showAlertDialog(context, 'خطأ', loginData['status']['message']);
+        //remove to pass not having cred
+        //  Navigator.of(context).pushNamed(ScreenRoutes.homeView);
+      }
     }
   }
 }
