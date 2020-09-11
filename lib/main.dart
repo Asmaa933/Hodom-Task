@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hodom_task/LoginView.dart';
-import 'package:hodom_task/WelcomeView.dart';
+import 'package:hodom_task/Views/WelcomeView.dart';
+
+import 'Views/HomeView.dart';
+import 'Views/LoginView.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,6 +19,7 @@ class MyApp extends StatelessWidget {
         routes: {
           ScreenRoutes.welcomeView: (_) => WelcomeView(),
           ScreenRoutes.loginView: (_) => LoginView(),
+          ScreenRoutes.homeView: (_) => HomeView(),
         });
   }
 }
@@ -24,4 +27,5 @@ class MyApp extends StatelessWidget {
 class ScreenRoutes {
   static const String welcomeView = '/WelcomeView';
   static const String loginView = '/loginView';
+  static const String homeView = '/homeView';
 }

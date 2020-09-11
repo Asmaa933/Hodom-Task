@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hodom_task/WidgetsBuilder.dart';
+import 'package:hodom_task/services/ApiHandler.dart';
+
+import '../main.dart';
 
 class LoginView extends StatelessWidget {
   @override
@@ -123,7 +126,7 @@ class _CheckAuthState extends State<CheckAuth> {
             alignment: Alignment.centerLeft,
             child: FlatButton(
               onPressed: () {
-                showAlertDialog(context, 'Forget password pressed');
+                showAlertDialog(context, 'Action', 'Forget password pressed');
               },
               child: buildText(17, 'هل نسيت كلمة المرور؟', Colors.black),
             ),
@@ -149,12 +152,17 @@ class _CheckAuthState extends State<CheckAuth> {
   }
 }
 
-void signInForUser(BuildContext context, String phone, String password) {
+void signInForUser(BuildContext context, String phone, String password) async {
   if (phone.isEmpty || password.isEmpty) {
-    showAlertDialog(context, 'يجب ادخال رقم الهاتف وكلمة المرور');
+    showAlertDialog(context, 'خطأ', 'يجب ادخال رقم الهاتف وكلمة المرور');
   } else {
-    //TO DO
-    print('user' + phone);
-    print('pass' + password);
+    var loginData = await ApiHandler().checkAuth(phone, password);
+    if (loginData.status.code == 200) {
+      showAlertDialog(context, 'Login success',
+          'name: ${loginData.result.user.name} \nemail: ${loginData.result.user.email}');
+      Navigator.of(context).pushNamed(ScreenRoutes.homeView);
+    } else {
+      showAlertDialog(context, 'خطأ', loginData.status.message);
+    }
   }
 }
