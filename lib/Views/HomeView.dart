@@ -1,7 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hodom_task/models/CategoriesModel.dart';
 import 'package:hodom_task/provider/providers.dart';
 import 'package:provider/provider.dart';
+
+import '../WidgetsBuilder.dart';
 
 class HomeView extends StatelessWidget {
   @override
@@ -14,7 +17,8 @@ class HomeView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SearchBarBuilder(),
+              searchBarBuilder(),
+              mainImageBuilder(),
               ContainerBuilder(),
             ],
           ),
@@ -24,21 +28,33 @@ class HomeView extends StatelessWidget {
   }
 }
 
-Widget SearchBarBuilder() {
+Widget mainImageBuilder() {
   return Container(
-    margin: EdgeInsets.all(20),
+    height: 170,
+    margin: EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20),
+      boxShadow: [
+        makeBoxShadow(),
+      ],
+      image: DecorationImage(
+        image: AssetImage('images/category_woman.jpg'),
+        fit: BoxFit.fill,
+      ),
+    ),
+  );
+}
+
+Widget searchBarBuilder() {
+  return Container(
+    margin: EdgeInsets.all(10),
     height: 55,
     decoration: BoxDecoration(
       color: Colors.white,
       border: Border.all(color: Colors.white),
       borderRadius: BorderRadius.circular(15),
       boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.5),
-          spreadRadius: 3,
-          blurRadius: 7,
-          offset: Offset(0, 3),
-        ),
+        makeBoxShadow(),
       ],
     ),
     child: Center(
@@ -93,7 +109,7 @@ class ContainerBuilder extends StatelessWidget {
   Widget buildCategoriesListView(
       List<Result> categories, BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: EdgeInsets.all(10),
       child: GridView.count(
         crossAxisCount: 2,
         crossAxisSpacing: 10,
@@ -123,14 +139,16 @@ Card getStructuredGridCell(Result category, BuildContext context) {
           Container(
             height: 120,
             width: double.infinity,
-            decoration: BoxDecoration(
+            child: ClipRRect(
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-              image: DecorationImage(
-                  image: NetworkImage(
-                    '${category.image}',
-                  ),
-                  fit: BoxFit.fill),
+                  topRight: Radius.circular(20), topLeft: Radius.circular(20)),
+              child: CachedNetworkImage(
+                imageUrl: category.image,
+                placeholder: (context, url) => CircularProgressIndicator(
+                  backgroundColor: Colors.black,
+                ),
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           Padding(

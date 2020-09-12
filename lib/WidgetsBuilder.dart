@@ -61,3 +61,12 @@ showAlertDialog(BuildContext context, String title, String message) {
     },
   );
 }
+
+BoxShadow makeBoxShadow() {
+  return BoxShadow(
+    color: Colors.grey.withOpacity(0.5),
+    spreadRadius: 3,
+    blurRadius: 7,
+    offset: Offset(0, 3),
+  );
+}
