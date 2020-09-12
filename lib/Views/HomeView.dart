@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hodom_task/WidgetsBuilder.dart';
 import 'package:hodom_task/models/CategoriesModel.dart';
 import 'package:hodom_task/provider/providers.dart';
 import 'package:provider/provider.dart';
@@ -118,21 +117,29 @@ Card getStructuredGridCell(Result category, BuildContext context) {
       borderRadius: BorderRadius.circular(20),
     ),
     child: Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        image: DecorationImage(
-          image: NetworkImage(
-            '${category.image}',
-          ),
-          alignment: Alignment.topLeft,
-        ),
-      ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
+          Container(
+            height: 120,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+              image: DecorationImage(
+                  image: NetworkImage(
+                    '${category.image}',
+                  ),
+                  fit: BoxFit.fill),
+            ),
+          ),
           Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: buildText(15, category.name, Colors.black),
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              category.name,
+              style: TextStyle(fontFamily: 'lalezar', fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
           ),
         ],
       ),
