@@ -7,9 +7,11 @@ DecorationImage backgroundImage() {
   );
 }
 
-Text buildText(double fontSize, String text, Color color) {
+Text buildText(double fontSize, String text, Color color,
+    {textAlign = TextAlign.start}) {
   return Text(
     text,
+    textAlign: textAlign,
     style: TextStyle(
       fontFamily: 'Lalezar',
       fontSize: fontSize,

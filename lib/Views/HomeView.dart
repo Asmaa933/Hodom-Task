@@ -42,6 +42,29 @@ Widget mainImageBuilder() {
         fit: BoxFit.fill,
       ),
     ),
+    child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Color.fromRGBO(0, 0, 0, 0.4),
+      ),
+      child: Container(
+        margin: EdgeInsets.only(right: 20, top: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            buildText(25, 'تشكيلة جديدة من \n الملابس الصيفية', Colors.white,
+                textAlign: TextAlign.end),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                buildText(40, '25%', Colors.white, textAlign: TextAlign.end),
+                buildText(25, 'بخصم ', Colors.white, textAlign: TextAlign.end),
+              ],
+            )
+          ],
+        ),
+      ),
+    ),
   );
 }
 
