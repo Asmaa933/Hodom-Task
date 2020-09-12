@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ff_navigation_bar/ff_navigation_bar.dart';
+import 'package:ff_navigation_bar/ff_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:hodom_task/models/CategoriesModel.dart';
 import 'package:hodom_task/provider/providers.dart';
@@ -24,6 +26,7 @@ class HomeView extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: BuildBottomNavigationBar(),
     );
   }
 }
@@ -186,4 +189,54 @@ Card getStructuredGridCell(Result category, BuildContext context) {
       ),
     ),
   );
+}
+
+class BuildBottomNavigationBar extends StatefulWidget {
+  @override
+  _BuildBottomNavigationBarState createState() =>
+      _BuildBottomNavigationBarState();
+}
+
+class _BuildBottomNavigationBarState extends State<BuildBottomNavigationBar> {
+  var selectedIndex = 0;
+  @override
+  Widget build(BuildContext context) {
+    return FFNavigationBar(
+      theme: FFNavigationBarTheme(
+        barHeight: 70,
+        barBackgroundColor: Colors.white,
+        selectedItemBorderColor: Colors.transparent,
+        selectedItemBackgroundColor: Colors.black,
+        selectedItemIconColor: Colors.white,
+        selectedItemLabelColor: Colors.black,
+        unselectedItemIconColor: Colors.black,
+        unselectedItemLabelColor: Colors.black,
+        showSelectedItemShadow: false,
+      ),
+      selectedIndex: selectedIndex,
+      onSelectTab: (index) {
+        setState(() {
+          selectedIndex = index;
+        });
+      },
+      items: [
+        FFNavigationBarItem(
+          iconData: Icons.more_horiz,
+          label: 'المزيد',
+        ),
+        FFNavigationBarItem(
+          iconData: Icons.local_shipping,
+          label: 'الطلبات',
+        ),
+        FFNavigationBarItem(
+          iconData: Icons.shopping_basket,
+          label: 'السلة',
+        ),
+        FFNavigationBarItem(
+          iconData: Icons.home,
+          label: 'الرئيسية',
+        ),
+      ],
+    );
+  }
 }
