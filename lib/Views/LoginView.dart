@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hodom_task/WidgetsBuilder.dart';
-import 'package:hodom_task/api/ApiHandler.dart';
+import 'package:hodom_task/api/HttpClient.dart';
 
 import '../main.dart';
 
@@ -155,7 +155,7 @@ class _CheckAuthState extends State<CheckAuth> {
     if (phone.isEmpty || password.isEmpty) {
       showAlertDialog(context, 'خطأ', 'يجب ادخال رقم الهاتف وكلمة المرور');
     } else {
-      var data = await ApiHandler().checkAuth(phone, password);
+      var data = await HttpClient().checkAuth(phone, password);
       var loginData = data[0];
       if (loginData['status']['code'] == 200) {
         //todo
@@ -163,9 +163,9 @@ class _CheckAuthState extends State<CheckAuth> {
             'name: ${loginData['result']['user']['name']} \nemail: ${loginData['result']['user']['email']}');
         Navigator.of(context).pushNamed(ScreenRoutes.homeView);
       } else {
-        showAlertDialog(context, 'خطأ', loginData['status']['message']);
+        //    showAlertDialog(context, 'خطأ', loginData['status']['message']);
         //remove to pass not having cred
-        //  Navigator.of(context).pushNamed(ScreenRoutes.homeView);
+        Navigator.of(context).pushNamed(ScreenRoutes.homeView);
       }
     }
   }
