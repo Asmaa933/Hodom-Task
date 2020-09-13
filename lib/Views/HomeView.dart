@@ -14,7 +14,7 @@ class HomeView extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => false, // prevent pop while swipe in iOS
       child: Scaffold(
-        backgroundColor: Color.fromRGBO(250, 250, 250, 1),
+        backgroundColor: Color.fromRGBO(250, 250, 250, 0.97),
         body: SafeArea(
           child: ChangeNotifierProvider<CategoryProvider>(
             create: (_) => CategoryProvider(),
@@ -202,41 +202,45 @@ class _BuildBottomNavigationBarState extends State<BuildBottomNavigationBar> {
   var selectedIndex = 3;
   @override
   Widget build(BuildContext context) {
-    return FFNavigationBar(
-      theme: FFNavigationBarTheme(
-        barBackgroundColor: Colors.white,
-        selectedItemBorderColor: Colors.transparent,
-        selectedItemBackgroundColor: Colors.black,
-        selectedItemIconColor: Colors.white,
-        selectedItemLabelColor: Colors.black,
-        unselectedItemIconColor: Colors.black,
-        unselectedItemLabelColor: Colors.black,
-        showSelectedItemShadow: false,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(30),
+      child: FFNavigationBar(
+        theme: FFNavigationBarTheme(
+          barHeight: 70,
+          barBackgroundColor: Colors.white,
+          selectedItemBorderColor: Colors.transparent,
+          selectedItemBackgroundColor: Colors.white,
+          selectedItemIconColor: Colors.black,
+          selectedItemLabelColor: Colors.black,
+          unselectedItemIconColor: Colors.black,
+          unselectedItemLabelColor: Colors.black,
+          showSelectedItemShadow: false,
+        ),
+        selectedIndex: selectedIndex,
+        onSelectTab: (index) {
+          setState(() {
+            selectedIndex = index;
+          });
+        },
+        items: [
+          FFNavigationBarItem(
+            iconData: Icons.more_horiz,
+            label: 'المزيد',
+          ),
+          FFNavigationBarItem(
+            iconData: Icons.local_shipping,
+            label: 'الطلبات',
+          ),
+          FFNavigationBarItem(
+            iconData: Icons.shopping_basket,
+            label: 'السلة',
+          ),
+          FFNavigationBarItem(
+            iconData: Icons.home,
+            label: 'الرئيسية',
+          ),
+        ],
       ),
-      selectedIndex: selectedIndex,
-      onSelectTab: (index) {
-        setState(() {
-          selectedIndex = index;
-        });
-      },
-      items: [
-        FFNavigationBarItem(
-          iconData: Icons.more_horiz,
-          label: 'المزيد',
-        ),
-        FFNavigationBarItem(
-          iconData: Icons.local_shipping,
-          label: 'الطلبات',
-        ),
-        FFNavigationBarItem(
-          iconData: Icons.shopping_basket,
-          label: 'السلة',
-        ),
-        FFNavigationBarItem(
-          iconData: Icons.home,
-          label: 'الرئيسية',
-        ),
-      ],
     );
   }
 }
