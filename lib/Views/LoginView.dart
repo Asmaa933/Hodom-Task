@@ -159,9 +159,9 @@ class _CheckAuthState extends State<CheckAuth> {
         Navigator.of(context).pushNamed(ScreenRoutes.homeView);
       } else {
         var errorLogin = Status.fromJson(data);
-        // showAlertDialog(context, 'خطأ', errorLogin.message);
+        showAlertDialog(context, 'خطأ', errorLogin.message);
         //remove to pass not having cred
-        Navigator.of(context).pushNamed(ScreenRoutes.homeView);
+        //Navigator.of(context).pushNamed(ScreenRoutes.homeView);
       }
     }
   }
