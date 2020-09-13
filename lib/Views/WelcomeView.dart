@@ -7,7 +7,9 @@ class WelcomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(image: backgroundImage()),
+        decoration: BoxDecoration(
+          image: backgroundImage(),
+        ),
         child: Scaffold(
           backgroundColor: Color.fromRGBO(0, 0, 0, 0.4),
           body: Center(
@@ -66,9 +68,9 @@ class FaceBookButtonBuilder extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            buildText(25, 'تسجيل دخول كعميل عبر الفيسبوك', Colors.white),
+            buildText(20, 'تسجيل دخول كعميل عبر الفيسبوك', Colors.white),
             SizedBox(
-              width: 30,
+              width: 25,
             ),
             Image.asset('images/facebook.png'),
           ],

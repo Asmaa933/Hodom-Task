@@ -5,11 +5,10 @@ import 'Views/HomeView.dart';
 import 'Views/LoginView.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(HodomApp());
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class HodomApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

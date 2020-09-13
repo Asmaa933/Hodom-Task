@@ -9,15 +9,16 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       backgroundColor: Color.fromRGBO(250, 250, 250, 1),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CloseButtonBuilder(),
-            addHeightSizedBox(150),
+            closeButtonBuilder(context),
+            addHeightSizedBox(120),
             Center(
-              child: buildText(35, 'تسجيل الدخول', Colors.black),
+              child: buildText(40, 'تسجيل الدخول', Colors.black),
             ),
             addHeightSizedBox(30),
             CheckAuth(),
@@ -26,42 +27,35 @@ class LoginView extends StatelessWidget {
       ),
     );
   }
-}
 
-class CloseButtonBuilder extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return createCloseButton(context);
-  }
-}
-
-Widget createCloseButton(BuildContext context) {
-  return Container(
-    width: 50,
-    height: 50,
-    decoration: BoxDecoration(
-      color: Colors.white,
-      border: Border.all(color: Colors.white),
-      borderRadius: BorderRadius.circular(15),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.5),
-          spreadRadius: 5,
-          blurRadius: 7,
-          offset: Offset(0, 3),
-        ),
-      ],
-    ),
-    margin: EdgeInsets.fromLTRB(30, 30, 0, 0),
-    child: FlatButton(
-      child: Image.asset(
-        'images/close.png',
+  Widget closeButtonBuilder(BuildContext context) {
+    return Container(
+      width: 50,
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: Colors.white),
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3),
+          ),
+        ],
       ),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    ),
-  );
+      margin: EdgeInsets.fromLTRB(30, 30, 0, 0),
+      child: FlatButton(
+        child: Image.asset(
+          'images/close.png',
+        ),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      ),
+    );
+  }
 }
 
 class CheckAuth extends StatefulWidget {
@@ -87,7 +81,7 @@ class _CheckAuthState extends State<CheckAuth> {
           ),
           TextField(
             textAlign: TextAlign.end,
-            keyboardType: TextInputType.number,
+            keyboardType: TextInputType.numberWithOptions(),
             onChanged: (value) {
               phone = value;
             },
@@ -132,7 +126,7 @@ class _CheckAuthState extends State<CheckAuth> {
               child: buildText(17, 'هل نسيت كلمة المرور؟', Colors.black),
             ),
           ),
-          addHeightSizedBox(50),
+          addHeightSizedBox(40),
           Container(
             width: double.infinity,
             height: 60,

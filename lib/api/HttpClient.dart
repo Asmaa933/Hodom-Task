@@ -12,6 +12,7 @@ class HttpClient {
         'password': password,
       }),
     );
+    // 2 different response
     if (response.statusCode == 200) {
       var jsonResponse = jsonDecode(response.body);
       if (jsonResponse[0]['status'] == 200) {

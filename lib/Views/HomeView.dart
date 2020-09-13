@@ -11,105 +11,108 @@ import '../WidgetsBuilder.dart';
 class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color.fromRGBO(250, 250, 250, 1),
-      body: SafeArea(
-        child: ChangeNotifierProvider<CategoryProvider>(
-          create: (_) => CategoryProvider(),
+    return WillPopScope(
+      onWillPop: () async => false, // prevent pop while swipe in iOS
+      child: Scaffold(
+        backgroundColor: Color.fromRGBO(250, 250, 250, 1),
+        body: SafeArea(
+          child: ChangeNotifierProvider<CategoryProvider>(
+            create: (_) => CategoryProvider(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                searchBarBuilder(),
+                mainImageBuilder(),
+                ContainerBuilder(),
+              ],
+            ),
+          ),
+        ),
+        bottomNavigationBar: BuildBottomNavigationBar(),
+      ),
+    );
+  }
+
+  Widget searchBarBuilder() {
+    return Container(
+      margin: EdgeInsets.all(10),
+      height: 55,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: Colors.white),
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          makeBoxShadow(),
+        ],
+      ),
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              width: 300,
+              child: TextField(
+                textAlign: TextAlign.end,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'ما الذى تبحث عنه',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Icon(
+                Icons.search,
+                size: 30,
+                color: Colors.grey,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget mainImageBuilder() {
+    return Container(
+      height: 170,
+      margin: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          makeBoxShadow(),
+        ],
+        image: DecorationImage(
+          image: AssetImage('images/category_woman.jpg'),
+          fit: BoxFit.fill,
+        ),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Color.fromRGBO(0, 0, 0, 0.4),
+        ),
+        child: Container(
+          margin: EdgeInsets.only(right: 20, top: 20),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              searchBarBuilder(),
-              mainImageBuilder(),
-              ContainerBuilder(),
+              buildText(25, 'تشكيلة جديدة من \n الملابس الصيفية', Colors.white,
+                  textAlign: TextAlign.end),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  buildText(40, '25%', Colors.white, textAlign: TextAlign.end),
+                  buildText(25, 'بخصم ', Colors.white,
+                      textAlign: TextAlign.end),
+                ],
+              )
             ],
           ),
         ),
       ),
-      bottomNavigationBar: BuildBottomNavigationBar(),
     );
   }
-}
-
-Widget mainImageBuilder() {
-  return Container(
-    height: 170,
-    margin: EdgeInsets.all(10),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(20),
-      boxShadow: [
-        makeBoxShadow(),
-      ],
-      image: DecorationImage(
-        image: AssetImage('images/category_woman.jpg'),
-        fit: BoxFit.fill,
-      ),
-    ),
-    child: Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Color.fromRGBO(0, 0, 0, 0.4),
-      ),
-      child: Container(
-        margin: EdgeInsets.only(right: 20, top: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            buildText(25, 'تشكيلة جديدة من \n الملابس الصيفية', Colors.white,
-                textAlign: TextAlign.end),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                buildText(40, '25%', Colors.white, textAlign: TextAlign.end),
-                buildText(25, 'بخصم ', Colors.white, textAlign: TextAlign.end),
-              ],
-            )
-          ],
-        ),
-      ),
-    ),
-  );
-}
-
-Widget searchBarBuilder() {
-  return Container(
-    margin: EdgeInsets.all(10),
-    height: 55,
-    decoration: BoxDecoration(
-      color: Colors.white,
-      border: Border.all(color: Colors.white),
-      borderRadius: BorderRadius.circular(15),
-      boxShadow: [
-        makeBoxShadow(),
-      ],
-    ),
-    child: Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Container(
-            width: 300,
-            child: TextField(
-              textAlign: TextAlign.end,
-              style: TextStyle(fontFamily: 'lalezar'),
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'ما الذى تبحث عنه',
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Icon(
-              Icons.search,
-              size: 30,
-              color: Colors.grey,
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
 }
 
 class ContainerBuilder extends StatelessWidget {
@@ -150,45 +153,46 @@ class ContainerBuilder extends StatelessWidget {
       ),
     );
   }
-}
 
-Card getStructuredGridCell(Result category, BuildContext context) {
-  return Card(
-    elevation: 1.5,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(20),
-    ),
-    child: Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            height: 120,
-            width: double.infinity,
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20), topLeft: Radius.circular(20)),
-              child: CachedNetworkImage(
-                imageUrl: category.image,
-                placeholder: (context, url) => CircularProgressIndicator(
-                  backgroundColor: Colors.black,
+  Card getStructuredGridCell(Result category, BuildContext context) {
+    return Card(
+      elevation: 1.5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+              height: 100,
+              width: double.infinity,
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    topLeft: Radius.circular(20)),
+                child: CachedNetworkImage(
+                  imageUrl: category.image,
+                  placeholder: (context, url) => CircularProgressIndicator(
+                    backgroundColor: Colors.black,
+                  ),
+                  fit: BoxFit.fill,
                 ),
-                fit: BoxFit.fill,
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-              category.name,
-              style: TextStyle(fontFamily: 'lalezar', fontSize: 20),
-              textAlign: TextAlign.center,
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                category.name,
+                style: TextStyle(fontFamily: 'lalezar', fontSize: 20),
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
 
 class BuildBottomNavigationBar extends StatefulWidget {
@@ -198,12 +202,11 @@ class BuildBottomNavigationBar extends StatefulWidget {
 }
 
 class _BuildBottomNavigationBarState extends State<BuildBottomNavigationBar> {
-  var selectedIndex = 0;
+  var selectedIndex = 3;
   @override
   Widget build(BuildContext context) {
     return FFNavigationBar(
       theme: FFNavigationBarTheme(
-        barHeight: 70,
         barBackgroundColor: Colors.white,
         selectedItemBorderColor: Colors.transparent,
         selectedItemBackgroundColor: Colors.black,
