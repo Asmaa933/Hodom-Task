@@ -156,7 +156,7 @@ class ContainerBuilder extends StatelessWidget {
 
   Card getStructuredGridCell(Result category, BuildContext context) {
     return Card(
-      elevation: 1.5,
+      //  elevation: 1.5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -165,12 +165,13 @@ class ContainerBuilder extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
-              height: 110,
+              height: 130,
               width: double.infinity,
               child: ClipRRect(
                 borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(20),
-                    topLeft: Radius.circular(20)),
+                  topRight: Radius.circular(20),
+                  topLeft: Radius.circular(20),
+                ),
                 child: CachedNetworkImage(
                   imageUrl: category.image,
                   placeholder: (context, url) => CircularProgressIndicator(
@@ -181,13 +182,9 @@ class ContainerBuilder extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                category.name,
-                style: TextStyle(fontFamily: 'lalezar', fontSize: 20),
-                textAlign: TextAlign.center,
-              ),
-            ),
+                padding: const EdgeInsets.all(10.0),
+                child: buildText(18, category.name, Colors.black,
+                    textAlign: TextAlign.center)),
           ],
         ),
       ),

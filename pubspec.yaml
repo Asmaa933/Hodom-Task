@@ -54,6 +54,6 @@ flutter:
      - images/
 
   fonts:
-     - family: Lalezar
+     - family: Tajawal
        fonts:
-         - asset: fonts/Lalezar-Regular.ttf
+         - asset: fonts/Tajawal-Regular.ttf

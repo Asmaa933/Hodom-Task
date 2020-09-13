@@ -18,7 +18,8 @@ class LoginView extends StatelessWidget {
             closeButtonBuilder(context),
             addHeightSizedBox(80),
             Center(
-              child: buildText(40, 'تسجيل الدخول', Colors.black),
+              child: buildText(30, 'تسجيل الدخول', Colors.black,
+                  fontWeight: FontWeight.bold),
             ),
             addHeightSizedBox(20),
             CheckAuth(),
@@ -92,7 +93,7 @@ class _CheckAuthState extends State<CheckAuth> {
               hintText: '+20 123 456 7896',
             ),
           ),
-          addHeightSizedBox(10),
+          addHeightSizedBox(15),
           buildText(20, 'كلمة المرور', Colors.black),
           TextField(
             textAlign: TextAlign.end,
@@ -116,7 +117,6 @@ class _CheckAuthState extends State<CheckAuth> {
               ),
             ),
           ),
-          addHeightSizedBox(5),
           Align(
             alignment: Alignment.centerLeft,
             child: FlatButton(
@@ -138,7 +138,7 @@ class _CheckAuthState extends State<CheckAuth> {
               onPressed: () {
                 signInForUser();
               },
-              child: buildText(25, 'تسجيل الدخول', Colors.white),
+              child: buildText(20, 'تسجيل الدخول', Colors.white),
             ),
           ),
         ],
@@ -159,9 +159,9 @@ class _CheckAuthState extends State<CheckAuth> {
         Navigator.of(context).pushNamed(ScreenRoutes.homeView);
       } else {
         var errorLogin = Status.fromJson(data);
-        showAlertDialog(context, 'خطأ', errorLogin.message);
+        // showAlertDialog(context, 'خطأ', errorLogin.message);
         //remove to pass not having cred
-        //  Navigator.of(context).pushNamed(ScreenRoutes.homeView);
+        Navigator.of(context).pushNamed(ScreenRoutes.homeView);
       }
     }
   }

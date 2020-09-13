@@ -16,7 +16,8 @@ class WelcomeView extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                buildText(45, 'اهلاً بك في هدوم', Colors.white),
+                buildText(45, 'اهلاً بك في هدوم', Colors.white,
+                    fontWeight: FontWeight.bold),
                 dividerLine(),
                 addHeightSizedBox(30),
                 LoginButtonBuilder(),
@@ -43,7 +44,7 @@ class LoginButtonBuilder extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        child: buildText(25, 'تسجيل الدخول كمتسوق', Colors.black),
+        child: buildText(20, 'تسجيل الدخول كمتسوق', Colors.black),
         color: Colors.white,
         onPressed: () {
           Navigator.of(context).pushNamed(ScreenRoutes.loginView);
@@ -70,7 +71,7 @@ class FaceBookButtonBuilder extends StatelessWidget {
           children: [
             buildText(20, 'تسجيل دخول كعميل عبر الفيسبوك', Colors.white),
             SizedBox(
-              width: 25,
+              width: 15,
             ),
             Image.asset('images/facebook.png'),
           ],

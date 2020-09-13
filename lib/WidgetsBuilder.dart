@@ -8,15 +8,15 @@ DecorationImage backgroundImage() {
 }
 
 Text buildText(double fontSize, String text, Color color,
-    {textAlign = TextAlign.start}) {
+    {textAlign = TextAlign.start, fontWeight = FontWeight.normal}) {
   return Text(
     text,
     textAlign: textAlign,
     style: TextStyle(
-      fontFamily: 'Lalezar',
+      fontFamily: 'Tajawal',
       fontSize: fontSize,
+      fontWeight: fontWeight,
       color: color,
-      fontWeight: FontWeight.bold,
     ),
   );
 }
