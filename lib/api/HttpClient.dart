@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class HttpClient {
-  Future checkAuth(String phone, String password) async {
+  Future<dynamic> checkAuth(String phone, String password) async {
     http.Response response = await http.post(
       'http://hodom.innsandbox.com/api/login',
       body: jsonEncode(<String, String>{
@@ -13,7 +13,12 @@ class HttpClient {
       }),
     );
     if (response.statusCode == 200) {
-      return jsonDecode(response.body);
+      var jsonResponse = jsonDecode(response.body);
+      if (jsonResponse[0]['status'] == 200) {
+        return jsonResponse[0];
+      } else {
+        return (jsonResponse[0]['status']);
+      }
     } else {
       print(response.statusCode);
     }
