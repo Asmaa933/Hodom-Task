@@ -16,11 +16,11 @@ class LoginView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             closeButtonBuilder(context),
-            addHeightSizedBox(120),
+            addHeightSizedBox(80),
             Center(
               child: buildText(40, 'تسجيل الدخول', Colors.black),
             ),
-            addHeightSizedBox(30),
+            addHeightSizedBox(20),
             CheckAuth(),
           ],
         ),
@@ -161,7 +161,7 @@ class _CheckAuthState extends State<CheckAuth> {
         var errorLogin = Status.fromJson(data);
         showAlertDialog(context, 'خطأ', errorLogin.message);
         //remove to pass not having cred
-        // Navigator.of(context).pushNamed(ScreenRoutes.homeView);
+        //  Navigator.of(context).pushNamed(ScreenRoutes.homeView);
       }
     }
   }

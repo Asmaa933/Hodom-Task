@@ -75,7 +75,7 @@ class HomeView extends StatelessWidget {
 
   Widget mainImageBuilder() {
     return Container(
-      height: 170,
+      height: 150,
       margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -97,13 +97,13 @@ class HomeView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              buildText(25, 'تشكيلة جديدة من \n الملابس الصيفية', Colors.white,
+              buildText(23, 'تشكيلة جديدة من \n الملابس الصيفية', Colors.white,
                   textAlign: TextAlign.end),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  buildText(40, '25%', Colors.white, textAlign: TextAlign.end),
-                  buildText(25, 'بخصم ', Colors.white,
+                  buildText(35, '25%', Colors.white, textAlign: TextAlign.end),
+                  buildText(23, 'بخصم ', Colors.white,
                       textAlign: TextAlign.end),
                 ],
               )
@@ -165,7 +165,7 @@ class ContainerBuilder extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
-              height: 100,
+              height: 110,
               width: double.infinity,
               child: ClipRRect(
                 borderRadius: BorderRadius.only(
